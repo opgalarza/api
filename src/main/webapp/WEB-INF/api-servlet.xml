@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:sec="http://www.springframework.org/schema/security" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+       http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd
+       http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+
+ 	    <!-- Allow ${property} expression to be fetch from properties file // -->
+    <context:property-placeholder location="classpath:*.properties"/>
+ 	
+	<mvc:annotation-driven />
+	
+	<mvc:default-servlet-handler/>
+	
+	<context:component-scan base-package="com.api"/>
+	
+	<!-- Scan all JPA Repository // -->
+    <jpa:repositories base-package="com.api.repository"/>
+	
+	<!-- Enable the default documentation controller-->
+    <context:component-scan base-package="com.mangofactory.swagger.controllers"/>
+	
+    <!-- Pick up the bundled spring config-->	
+    <context:component-scan base-package="com.mangofactory.swagger.configuration"/>
+    
+        <!-- Dozer Bean Mapper // -->
+    <bean id="dozerBeanMapper" class="org.dozer.DozerBeanMapper" scope="singleton">
+        <property name="mappingFiles">
+            <value>dozer-bjn-configuration.xml</value>
+        </property>
+    </bean>
+    
+    <bean id="dataSourceBean" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${database.hibernate.driver.class}" />
+		<property name="url" value="${database.hibernate.url}" />
+		<property name="username" value="${database.hibernate.username}" />
+		<property name="password" value="${database.hibernate.password}" />
+		<property name="initialSize" value="${database.hibernate.initialSize}" />
+		<property name="maxActive" value="${database.hibernate.maxActive}" />
+	</bean>
+
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="PUCore" />
+		<property name="dataSource" ref="dataSourceBean" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="databasePlatform" value="${database.hibernate.dialect}" />
+				<property name="showSql" value="${database.hibernate.show_sql}" />
+			</bean>
+		</property>
+	</bean>    
+    
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory"></property>
+	</bean>  
+    
+</beans>

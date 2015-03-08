@@ -42,7 +42,7 @@ public class EmployeeController extends GenericController<Employee, EmployeeDTO,
     @ResponseBody
     @RequestMapping(value = "/display", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Display a message", response = EmployeeDTO.class, httpMethod = "GET", notes = "")
-    public EmployeeDTO resendEmailConfirmation(){
+    public EmployeeDTO display(){
     	EmployeeDTO employee = new EmployeeDTO();
     	employee.setName("test name");
     	employee.setEmail("test@test.com");

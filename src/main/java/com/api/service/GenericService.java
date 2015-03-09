@@ -78,15 +78,12 @@ public abstract class GenericService<E extends GenericEntity, T extends GenericD
         }
     }
 
-    /**
-     * POST
-     * <p/>
-     *
-     * @param dto
-     * @return
-     * @throws CreateEntityException 
-     * @throws BaseAtlasException
-     */
+	/**
+	 * 
+	 * @param dto
+	 * @return
+	 * @throws CreateEntityException
+	 */
     @Transactional
     public T postEntity(@RequestBody T dto) throws CreateEntityException {
         dto.setDefaultFields();
@@ -100,12 +97,9 @@ public abstract class GenericService<E extends GenericEntity, T extends GenericD
     }
 
     /**
-     * DELETE
-     * <p/>
-     *
+     * 
      * @param id
-     * @throws NonExistentEntityException 
-     * @throws BaseAtlasException
+     * @throws NonExistentEntityException
      */
     @Transactional
     public void deleteEntity(@PathVariable("id") Integer id) throws NonExistentEntityException {

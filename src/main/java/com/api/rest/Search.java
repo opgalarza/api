@@ -119,20 +119,4 @@ public class Search {
 		PageDTO<JobDTO> pageDTO = new PageDTO(1, 10, 10, (long) 100, jobs);
 		return pageDTO;
     }
-	
-	
-//    @ResponseBody
-//    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-//    public AffiliateDTO updateAffiliate(@PathVariable("id") Integer id, @RequestBody AffiliateDTO dto) throws BaseAtlasException {
-//        return service.putEntity(id, dto);
-//    }
-    
-//    @ResponseBody
-//    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-//    @ApiOperation(value = "Retrieve a single affiliate", response = AffiliateDTO.class, httpMethod = "GET", notes = "Used the parameter 'bind' to expand the object with his nested relation.", produces = "application/json")
-//    public AffiliateDTO getAffiliate(
-//            @ApiParam(value = "Object Expand Level", allowableValues = AffiliateMapper.ALLOWED_BIND, allowMultiple = true, defaultValue = AffiliateMapper.BIND_DEFAULT) @RequestParam(value = "bind", required = false, defaultValue = "0") String bindMode,
-//            @ApiParam(value = "Affiliate Id") @PathVariable("id") Integer id) throws BaseAtlasException {
-//        return service.getEntity(id, bindMode);
-//    }
 }
